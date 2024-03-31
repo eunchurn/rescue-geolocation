@@ -9,7 +9,8 @@
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push",
     "migrate:dev": "cd packages/prisma && pnpm migrate:dev",
-    "migrate:deploy": "cd packages/prisma && pnpm run db:migrate"
+    "migrate:deploy": "cd packages/prisma && pnpm run db:migrate",
+    "typecheck": "turbo typecheck"
   },
   "devDependencies": {
     "@rescue/eslint-config": "workspace:*",

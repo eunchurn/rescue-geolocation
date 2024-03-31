@@ -6,16 +6,16 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  // previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model GeoLocation {
-  id               Int       @id @default(autoincrement())
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   accuracy         Float
@@ -27,11 +27,11 @@ model GeoLocation {
   speed            Float?
   timestamp        DateTime
   castaway         Castaway? @relation(fields: [castawayId], references: [id])
-  castawayId       Int?
+  castawayId       String?   @db.ObjectId
 }
 
 model Castaway {
-  id       Int           @id @default(autoincrement())
+  id       String        @id @default(auto()) @map("_id") @db.ObjectId
   uniqueId String        @unique
   location GeoLocation[]
 }
