@@ -1,0 +1,11 @@
+GET http://localhost:3000/api?id=siIZB7
+
+### Post
+
+POST http://localhost:3000/api
+
+{
+  "data": {
+    "hello": "world"
+  }
+}

@@ -5,6 +5,8 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  max-width: var(--content-width);
+  overflow-x: hidden;
 }
 
 .vercelLogo {
@@ -53,7 +55,7 @@
   display: flex;
   position: relative;
   z-index: 0;
-  padding-bottom: 4rem;
+  padding-bottom: 1rem;
   flex-direction: column;
   gap: 2rem;
   justify-content: space-between;
@@ -298,18 +300,36 @@
 }
 
 .backgroundGradient {
-  top: -500px;
-  width: 1000px;
-  height: 1000px;
+  top: 0px;
+  width: 300px;
+  height: 300px;
   opacity: 0.15;
 }
 
 .button {
-  background-color: #ffffff;
+  color: white;
+  padding: .75rem 2.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.buttonHelp {
+  background-color: var(--button-background);
+}
+
+.buttonHelp:hover {
+  background-color: var(--button-background-hover);
+}
+/* 
+.button {
+  background-color: var(--background-start-rgb);
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
-  color: #000000;
+  color: var(--forground-rgb);
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -327,9 +347,9 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-}
+} */
 
-.button:hover,
+/* .button:hover,
 .button:focus {
-  background-color: #e5e4e2;
-}
+  background-color: var(--foreground-focus);
+} */

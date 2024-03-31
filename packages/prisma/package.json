@@ -1,0 +1,35 @@
+{
+  "name": "@rescue/prisma",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "npm run build -- --watch",
+    "db:generate": "dotenv -e ../../.env -- tsx scripts/db-generate.ts",
+    "generate": "dotenv -e ../../.env -- prisma generate",
+    "db:push": "dotenv -e ../../.env -- tsx scripts/db-push.ts",
+    "migrate:deploy": "tsx scripts/migrate-deploy.ts",
+    "migrate:dev": "dotenv -e ../../.env -- prisma migrate dev --create-only --schema prisma/schema.prisma",
+    "db:migrate": "pnpm migrate:deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@rescue/eslint-config": "workspace:*",
+    "@rescue/typescript-config": "workspace:*",
+    "@types/ws": "^8.5.10",
+    "dotenv-cli": "^7.4.1",
+    "prisma": "^5.11.0",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.0",
+    "@prisma/adapter-neon": "^5.11.0",
+    "@prisma/client": "^5.11.0",
+    "ws": "^8.16.0"
+  }
+}

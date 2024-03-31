@@ -1,0 +1,17 @@
+.button {
+  color: white;
+  padding: .75rem 2.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.buttonHelp {
+  background-color: var(--button-background);
+}
+
+.buttonHelp:hover {
+  background-color: var(--button-background-hover);
+}

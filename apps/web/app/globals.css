@@ -1,25 +1,50 @@
 :root {
   --max-width: 1100px;
+  --content-width: 450px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --foreground-rgb: 0, 0, 0;
+  --foreground-focus: #e5e4e2;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+  --location-background: #59488b;
+  --location-foreground: #e5e4e2;
+  --callout-rgb: 235, 235, 235;
+  --callout-border-rgb: 147, 147, 147;
+  --card-rgb: 155, 155, 155;
+  --card-border-rgb: 55, 55, 55;
+  --circle-stroke: rgba(0, 0, 0, .1);
+  --glow-conic: conic-gradient(from 180deg at 50% 50%,
+      #2a8af6 0deg,
+      #a853ba 180deg,
+      #e92a67 360deg);
+  --gradient-radial: #000000;
+  --button-background: #4CAF50;
+  --button-background-hover: #60c365;
+  --button-foreground: #ffffff;
+}
 
-  --callout-rgb: 20, 20, 20;
-  --callout-border-rgb: 108, 108, 108;
-  --card-rgb: 100, 100, 100;
-  --card-border-rgb: 200, 200, 200;
-
-  --glow-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    #2a8af6 0deg,
-    #a853ba 180deg,
-    #e92a67 360deg
-  );
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --foreground-focus: #e5e4e2;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --location-background: #59488b;
+    --callout-rgb: 20, 20, 20;
+    --callout-border-rgb: 108, 108, 108;
+    --card-rgb: 100, 100, 100;
+    --card-border-rgb: 200, 200, 200;
+    --circle-stroke: rgba(255, 255, 255, .1);
+    --glow-conic: conic-gradient(from 180deg at 50% 50%,
+        #2a8af6 0deg,
+        #a853ba 180deg,
+        #e92a67 360deg);
+    --gradient-radial: #ffffff;
+  }
 }
 
 * {
@@ -36,12 +61,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {

@@ -1,0 +1,12 @@
+.container{
+  text-align: center;
+  padding: 50px 1em;
+  /* background-color: var(--location-background); */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  max-width: var(--content-width);
+  overflow-x: hidden;
+  color: var(--location-background);
+}

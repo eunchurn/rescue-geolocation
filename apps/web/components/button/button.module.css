@@ -1,0 +1,13 @@
+.button {
+  background: none;
+  border-radius: 1.5em;
+  border: 1px solid var(--main-foreground);
+  height: 3em;
+  padding: 0 2em;
+  cursor: pointer;
+  margin: 0 10px 8px;
+  min-width: 180px;
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--main-foreground);
+}
