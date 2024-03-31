@@ -7,6 +7,10 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "@rescue/prisma#build": {
+      "dependsOn": ["@rescue/prisma#db:generate"],
+      "cache": false
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
