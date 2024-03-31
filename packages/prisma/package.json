@@ -11,7 +11,7 @@
     "db:generate": "dotenv -e ../../.env -- tsx scripts/db-generate.ts",
     "generate": "dotenv -e ../../.env -- prisma generate",
     "db:push": "dotenv -e ../../.env -- tsx scripts/db-push.ts",
-    "migrate:deploy": "tsx scripts/migrate-deploy.ts",
+    "migrate:deploy": "dotenv -e ../../.env -- tsx scripts/migrate-deploy.ts",
     "migrate:dev": "dotenv -e ../../.env -- prisma migrate dev --create-only --schema prisma/schema.prisma",
     "db:migrate": "pnpm migrate:deploy",
     "typecheck": "tsc --noEmit"

@@ -7,7 +7,9 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:generate": "turbo db:generate",
-    "db:push": "turbo db:push"
+    "db:push": "turbo db:push",
+    "migrate:dev": "cd packages/prisma && pnpm migrate:dev",
+    "migrate:deploy": "cd packages/prisma && pnpm run db:migrate"
   },
   "devDependencies": {
     "@rescue/eslint-config": "workspace:*",
