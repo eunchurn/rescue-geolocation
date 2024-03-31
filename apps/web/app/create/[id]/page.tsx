@@ -1,6 +1,6 @@
 import { CreatedLocation } from "@/views";
 import { headers } from "next/headers";
-import prisma, { Prisma } from "@rescue/prisma";
+import prisma from "@rescue/prisma";
 
 interface CreateProps {
   params: {
