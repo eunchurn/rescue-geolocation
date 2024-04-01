@@ -8,11 +8,12 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "긴급구조 위치 공유",
   description: "조난자에게 링크를 보내 위치를 수집하세요.",
+  metadataBase: new URL("https://rescue.clev.app"),
 };
 
 export const viewport: Viewport = {
   themeColor: "#000000",
-}
+};
 
 export default function RootLayout({
   children,

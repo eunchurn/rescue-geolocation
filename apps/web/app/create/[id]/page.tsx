@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { CreatedLocation } from "@/views";
 import { headers } from "next/headers";
 import prisma from "@rescue/prisma";
+
+export const metadata: Metadata = {
+  title: "긴급구조 위치 공유",
+  description: "조난자에게 링크를 보내주세요.",
+  metadataBase: new URL("https://rescue.clev.app"),
+};
 
 export const fetchCache = "force-no-store";
 interface CreateProps {

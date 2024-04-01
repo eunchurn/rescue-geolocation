@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import prisma, { Prisma } from "@rescue/prisma";
 import { Tracking } from "@/views";
 
+export const metadata: Metadata = {
+  title: "긴급구조 위치 공유",
+  description: "조난자 위치를 확인하세요.",
+  metadataBase: new URL("https://rescue.clev.app"),
+};
 interface TrackingProps {
   params: {
     id: string;
