@@ -1,6 +1,7 @@
 .button {
   color: white;
-  padding: .75rem 2.5rem;
+  width: 100%;
+  padding: .75rem .5rem;
   border: none;
   cursor: pointer;
   border-radius: 5px;

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 1rem 6rem 1rem 6rem;
   min-height: 100vh;
   max-width: var(--content-width);
   overflow-x: hidden;
@@ -306,15 +306,6 @@
   opacity: 0.15;
 }
 
-.button {
-  color: white;
-  padding: .75rem 2.5rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
 
 .buttonHelp {
   background-color: var(--button-background);

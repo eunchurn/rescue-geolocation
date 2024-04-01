@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { RescueButton } from "@/components";
+import { Logo, RescueButton } from "@/components";
 
 function Gradient({
   conic,
@@ -116,7 +116,8 @@ export default function Page(): JSX.Element {
         </div>
       </div>
       <RescueButton />
-      <div className={styles.grid}></div>
+      <div style={{ height: "21px", width: "150px"}}><Logo /></div>
     </div>
   );
 }
+
