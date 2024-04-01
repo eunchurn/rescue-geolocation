@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   transpilePackages: ["@rescue/ui"],
+  metadataBase: "https://rescue.clev.app",
   images: {
     remotePatterns: [
       {
