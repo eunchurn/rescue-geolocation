@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import { RescueContainer } from "@/views/rescue";
 
+export const fetchCache = "force-no-store";
 interface RescueProps {
   params: {
     id: string;

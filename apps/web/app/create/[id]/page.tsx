@@ -2,6 +2,7 @@ import { CreatedLocation } from "@/views";
 import { headers } from "next/headers";
 import prisma from "@rescue/prisma";
 
+export const fetchCache = "force-no-store";
 interface CreateProps {
   params: {
     id: string;
