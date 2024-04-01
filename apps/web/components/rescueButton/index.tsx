@@ -9,7 +9,8 @@ export function RescueButton() {
     <button
       className={[styles.button, styles.buttonHelp].join(" ")}
       onClick={() => {
-        router.push("/create")
+        router.push("/create");
+        router.refresh();
       }}
     >
       구조링크 생성
