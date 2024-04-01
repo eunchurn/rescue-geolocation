@@ -1,7 +1,9 @@
+import React from "react";
 import type { Metadata } from "next";
 import { CreatedLocation } from "@/views";
 import { headers } from "next/headers";
 import prisma from "@rescue/prisma";
+import styles from "./created.module.css";
 
 export const metadata: Metadata = {
   title: "긴급구조 위치 공유",
@@ -31,5 +33,17 @@ export default async function Create(props: CreateProps) {
   const { origin } = new URL(headerUrl);
   const link = new URL(`/rescue/${id}`, origin).href;
   const trackingUrl = new URL(`/tracking/${id}`, origin).href;
-  return <CreatedLocation link={link} trackingLink={trackingUrl} />;
+  return (
+    <React.Suspense
+      fallback={
+        <div className={styles.container}>
+          <div className={styles.eyeContainer}>
+            <div className={styles.eye}></div>
+          </div>
+        </div>
+      }
+    >
+      <CreatedLocation link={link} trackingLink={trackingUrl} />
+    </React.Suspense>
+  );
 }
