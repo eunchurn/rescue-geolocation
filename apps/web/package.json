@@ -13,6 +13,7 @@
     "@react-google-maps/api": "^2.19.3",
     "@rescue/prisma": "workspace:^",
     "@rescue/ui": "workspace:*",
+    "@vercel/speed-insights": "^1.0.10",
     "dayjs": "^1.11.10",
     "nanoid": "^5.0.6",
     "next": "^14.1.1",

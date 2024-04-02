@@ -3,8 +3,10 @@ import type { Metadata, Viewport } from "next";
 import styles from "./layout.module.css";
 import { Inter } from "next/font/google";
 import { FooterButton } from "@/components";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata: Metadata = {
   title: "긴급구조 위치 공유",
@@ -27,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
+        <SpeedInsights />
         <main className={styles.main_container}>{children} </main>
         <footer className={styles.footer_container}>
           <FooterButton />
