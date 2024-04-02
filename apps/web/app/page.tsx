@@ -1,10 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Logo, RescueButton } from "@/components";
-import { revalidatePath } from "next/cache";
-
-revalidatePath("/create", "page");
-revalidatePath("/create/[id]", "page");
 
 function Gradient({
   conic,
