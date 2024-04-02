@@ -6,6 +6,7 @@ export async function GET() {
   const data = await prisma.geoLocation.deleteMany({
     where: { createdAt: { lte: dayjs().subtract(1, "day").toDate() } },
   });
+  console.log(`== deleted ${JSON.stringify(data)}`)
   return Response.json(data);
 }
 
