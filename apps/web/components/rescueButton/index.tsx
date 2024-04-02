@@ -1,17 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import styles from "./rescue.module.css";
+import React from "react";
 
 export function RescueButton() {
-  const router = useRouter();
+  const handleCreate = React.useCallback(() => {
+    fetch("/api/create");
+  }, []);
   return (
     <button
       className={[styles.button, styles.buttonHelp].join(" ")}
-      onClick={() => {
-        router.push("/create");
-        router.refresh();
-      }}
+      onClick={handleCreate}
     >
       구조링크 생성
     </button>
