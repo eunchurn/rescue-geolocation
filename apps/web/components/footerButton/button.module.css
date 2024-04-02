@@ -1,0 +1,16 @@
+.footer_button {
+  border: none;
+  background: none;
+  height: 21px;
+  width: 150px;
+  border-radius: 2px;
+  padding: .2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.footer_button:hover {
+  background-color: #58ee9c;
+}

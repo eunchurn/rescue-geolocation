@@ -27,7 +27,10 @@ export function CreatedLocation(props: CreatedLocationProps) {
         <div className={styles.eye}></div>
       </div>
       <div>아래 링크를 조난자에게 공유해주세요.</div>
-      <div>조난자가 링크를 클릭하면 추적 시작하기 클릭하여 조난자의 위치를 공유 받을 수 있습니다.</div>
+      <div>
+        조난자가 링크를 클릭하면 추적 시작하기 클릭하여 조난자의 위치를 공유
+        받을 수 있습니다.
+      </div>
       <div className={styles.inputContainer}>
         <input
           ref={inputRef}
@@ -47,6 +50,13 @@ export function CreatedLocation(props: CreatedLocationProps) {
           }}
         >
           추적 시작하기
+        </Button>
+        <Button
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          처음으로 돌아가기
         </Button>
       </div>
     </div>

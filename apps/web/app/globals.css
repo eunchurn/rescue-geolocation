@@ -10,8 +10,10 @@
   --foreground-focus: #e5e4e2;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
-  --location-background: #59488b;
-  --location-foreground: #e5e4e2;
+  --location-background: #e5e4e2;
+  --location-background-rgb: 229, 228, 226;
+  --location-foreground: #59488b;
+  --location-foreground-rgb: 89, 72, 139;
   --callout-rgb: 235, 235, 235;
   --callout-border-rgb: 147, 147, 147;
   --card-rgb: 155, 155, 155;
@@ -34,6 +36,9 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
     --location-background: #59488b;
+    --location-background-rgb: 89, 72, 139;
+    --location-foreground: #e5e4e2;
+    --location-foreground-rgb: 229, 228, 226;
     --callout-rgb: 20, 20, 20;
     --callout-border-rgb: 108, 108, 108;
     --card-rgb: 100, 100, 100;

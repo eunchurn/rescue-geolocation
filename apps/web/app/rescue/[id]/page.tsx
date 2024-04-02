@@ -12,11 +12,13 @@ export const fetchCache = "force-no-store";
 interface RescueProps {
   params: {
     id: string;
-  }
+  };
 }
 
 export default function Rescue(props: RescueProps) {
-  const { params: { id }} = props;
+  const {
+    params: { id },
+  } = props;
   return (
     <div className={[styles.container, styles.cf].join(" ")}>
       <div className={styles.span}>

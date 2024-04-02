@@ -28,7 +28,7 @@ function Gradient({
 export default function Page(): JSX.Element {
   return (
     <div className={styles.main}>
-      <div className={styles.description}></div>
+      {/* <div className={styles.description}></div> */}
 
       <div className={styles.hero}>
         <div className={styles.heroContent}>
@@ -116,9 +116,9 @@ export default function Page(): JSX.Element {
         </div>
       </div>
       <RescueButton />
-      <div style={{ height: "21px", width: "150px" }}>
+      {/* <div style={{ height: "21px", width: "150px" }}>
         <Logo />
-      </div>
+      </div> */}
     </div>
   );
 }

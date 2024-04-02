@@ -1,7 +1,7 @@
 .button {
-  background: none;
+  background: var(--button-background);
   border-radius: 1.5em;
-  border: 1px solid var(--main-foreground);
+  border: 1px solid var(--button-foreground);
   height: 3em;
   padding: 0 2em;
   cursor: pointer;
@@ -9,5 +9,9 @@
   min-width: 180px;
   font-size: 1em;
   font-weight: 500;
-  color: var(--main-foreground);
+  color: var(--button-foreground);
+}
+
+.button:hover {
+  background-color: var(--button-background-hover);
 }

@@ -59,7 +59,9 @@ export function RescueContainer(props: RescueContainerProps) {
       ) : null}
     </div>
   ) : (
-    <div>좌표를 찾고있습니다.</div>
+    <div className={styles.report}>
+      <div>좌표를 찾고있습니다.</div>
+    </div>
   );
 }
 

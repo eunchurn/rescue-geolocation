@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import styles from "./layout.module.css";
 import { Inter } from "next/font/google";
+import { FooterButton } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <main className={styles.main_container}>{children}</main>
+        <main className={styles.main_container}>{children} </main>
+        <footer className={styles.footer_container}>
+          <FooterButton />
+        </footer>
       </body>
     </html>
   );

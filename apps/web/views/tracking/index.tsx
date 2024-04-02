@@ -8,6 +8,9 @@ import updatedLocale from "dayjs/plugin/updateLocale";
 import "dayjs/locale/ko";
 import { convertDDtoDMS } from "@/shared";
 import React from "react";
+import { useRouter } from "next/navigation";
+import { useSnackbar } from "@/hooks";
+import { Button, Snackbar } from "@/components";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updatedLocale);
@@ -23,11 +26,11 @@ function Tooltip(props: TooltipProps) {
 
 function Waiting() {
   return (
-    <div>
+    <div className={styles.waiting}>
       <div className={styles.helpContainer}>
         <div className={styles.timer}></div>
       </div>
-      위치정보를 기다리는 중입니다.
+      <div className={styles.waitingText}>위치정보를 기다리는 중입니다.</div>
     </div>
   );
 }
@@ -35,12 +38,22 @@ function Waiting() {
 interface TrackingProps {
   id: string;
   data: GeoLocation[];
+  link: string;
 }
 
 export function Tracking(props: TrackingProps) {
-  const { id, data } = props;
+  const { id, data, link } = props;
   const param = new URLSearchParams({ id });
   const [state, setState] = React.useState(data);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const { isActive, message, openSnackBar } = useSnackbar();
+  const handleCopy = () => {
+    if (inputRef.current) {
+      navigator.clipboard.writeText(link);
+      openSnackBar("주소를 클립보드로 복사했습니다.");
+    }
+  };
   React.useEffect(() => {
     const interval = setInterval(() => {
       fetch(`/api?${param}`, { method: "GET" })
@@ -53,6 +66,18 @@ export function Tracking(props: TrackingProps) {
   }, []);
   return (
     <div className={styles.container}>
+      <div className={styles.inputContainer}>
+        <input
+          ref={inputRef}
+          type="text"
+          value={link}
+          onChange={() => void 0}
+        />
+        <button className={styles.copyButton} onClick={handleCopy}>
+          복사
+        </button>
+      </div>
+      <Snackbar isActive={isActive} message={message} />
       <ul className={styles.itemsList}>
         {state.length === 0 ? <Waiting /> : null}
         {state.map((item, index) => {

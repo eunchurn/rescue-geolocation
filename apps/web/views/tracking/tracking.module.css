@@ -1,42 +1,21 @@
 .container {
-  --colorLight: #fafafa;
-  --colorDark: #252529;
-  --colorLightGrey: #eeeeee;
-  --colorGrey: #bdbdbd;
-
-  --colorWhite: #fff;
-
-  --colorDarkGreen: #2e7d32;
-  --colorGreen: #4caf50;
-  --colorLightGreen: #4dd0e1;
-
-  --color1: #9575cd;
-  --color2: #7986cb;
-  --color2: #f48fb1;
-  --color3: #9575cd;
-  --color4: #4FC3F7;
-
-  --colorWarning: #FFA000;
-  --colorOff: #BF360C;
-
-  --layoutWidth: 980px;
-  --standardPadding: 20px;
-  --layoutBorderRadius: 5px;
-
-  --sizeDefault: 1em;
-  --sizeLarge: 1.25em;
-  --sizeXLarge: 1.5em;
-  --sizeXXLarge: 2em;
-
-  --col1Width: 240px;
-  --col2Width: 145px;
-  --col3Width: 190px;
-  --col4Width: 150px;
-  --col5Width: 170px;
-  --col6Width: 30px;
   margin: 0 auto;
   margin-top: 50px;
   width: 100%;
+  height: auto;
+}
+
+.waiting {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.waitingText {
+  margin-top: 2em;
 }
 
 .itemsList {
@@ -77,6 +56,43 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.inputContainer input[type="text"] {
+  min-width: 250px;
+  width: 100%;
+  font-family: var(--font-mono);
+  padding: 1rem;
+  background-color: var(--background-start-rgb);
+  color: var(--foreground-rgb);
+  border: 1px solid var(--location-background);
+  border-top-left-radius: .5rem;
+  border-bottom-left-radius: .5rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.copyButton {
+  min-width: 10px;
+  width: 10%;
+  /* padding: 1rem; */
+  border-radius: 0;
+  color: var(--location-foreground);
+  border: 1px solid var(--location-background);
+  background-color: var(--location-background);
+  border-top-right-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  cursor: pointer;
+}
+
 
 .geolocation {
   min-width: 9em;
