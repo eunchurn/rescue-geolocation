@@ -1,6 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Logo, RescueButton } from "@/components";
+import { revalidatePath } from "next/cache";
+
+revalidatePath("/create", "page");
+revalidatePath("/create/[id]", "page");
 
 function Gradient({
   conic,
@@ -116,8 +120,9 @@ export default function Page(): JSX.Element {
         </div>
       </div>
       <RescueButton />
-      <div style={{ height: "21px", width: "150px"}}><Logo /></div>
+      <div style={{ height: "21px", width: "150px" }}>
+        <Logo />
+      </div>
     </div>
   );
 }
-
