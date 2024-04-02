@@ -55,6 +55,9 @@ export function RescueContainer(props: RescueContainerProps) {
           <div className={styles.report}>
             {new Date(location.timestamp).toLocaleString()}
           </div>
+          <div className={styles.report}>
+            위치정보는 24시간후에 자동 삭제됩니다.
+          </div>
         </>
       ) : null}
     </div>

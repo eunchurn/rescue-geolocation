@@ -114,11 +114,21 @@ export function Tracking(props: TrackingProps) {
                 <MarkerF
                   key={id}
                   position={{ lat: latitude, lng: longitude }}
-                  icon={{ url: "/geolocation.svg", scaledSize: new google.maps.Size(50, 50) }}
+                  icon={{
+                    url: "/geolocation.svg",
+                    scaledSize: new google.maps.Size(50, 50),
+                  }}
                 />
               );
             return (
-              <MarkerF key={id} position={{ lat: latitude, lng: longitude }} />
+              <MarkerF
+                key={id}
+                position={{ lat: latitude, lng: longitude }}
+                icon={{
+                  url: "/gray.svg",
+                  scaledSize: new google.maps.Size(20, 20),
+                }}
+              />
             );
           })}
         </GoogleMap>
