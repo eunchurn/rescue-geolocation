@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "@rescue/prisma": "workspace:^",
     "@rescue/ui": "workspace:*",
     "dayjs": "^1.11.10",

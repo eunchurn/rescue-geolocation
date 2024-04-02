@@ -11,6 +11,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks";
 import { Button, Snackbar } from "@/components";
+import { useJsApiLoader, MarkerF, GoogleMap } from "@react-google-maps/api";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updatedLocale);
@@ -48,12 +49,34 @@ export function Tracking(props: TrackingProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { isActive, message, openSnackBar } = useSnackbar();
+  const { isLoaded } = useJsApiLoader({
+    id: "rescue-clev",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+  });
   const handleCopy = () => {
     if (inputRef.current) {
       navigator.clipboard.writeText(link);
       openSnackBar("주소를 클립보드로 복사했습니다.");
     }
   };
+  const [map, setMap] = React.useState<google.maps.Map | null>(null);
+  const center = {
+    lat: state[0]?.latitude || 37.5072397,
+    lng: state[0]?.longitude || 126.884165,
+  };
+  const onLoad = React.useCallback(
+    function callback(map: google.maps.Map) {
+      const bounds = new window.google.maps.LatLngBounds(center);
+      map.fitBounds(bounds);
+
+      setMap(map);
+    },
+    [center]
+  );
+
+  const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
+    setMap(null);
+  }, []);
   React.useEffect(() => {
     const interval = setInterval(() => {
       fetch(`/api?${param}`, { method: "GET" })
@@ -77,6 +100,29 @@ export function Tracking(props: TrackingProps) {
           복사
         </button>
       </div>
+      {state.length === 0 ? null : isLoaded ? (
+        <GoogleMap
+          mapContainerStyle={{ height: "400px" }}
+          center={center}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+        >
+          {state.map((location, index) => {
+            const { id, latitude, longitude } = location;
+            if (index === 0)
+              return (
+                <MarkerF
+                  key={id}
+                  position={{ lat: latitude, lng: longitude }}
+                  icon={{ url: "/geolocation.svg", scaledSize: new google.maps.Size(50, 50) }}
+                />
+              );
+            return (
+              <MarkerF key={id} position={{ lat: latitude, lng: longitude }} />
+            );
+          })}
+        </GoogleMap>
+      ) : null}
       <Snackbar isActive={isActive} message={message} />
       <ul className={styles.itemsList}>
         {state.length === 0 ? <Waiting /> : null}
