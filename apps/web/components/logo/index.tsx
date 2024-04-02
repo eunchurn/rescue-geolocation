@@ -1,4 +1,7 @@
-export function Logo() {
+import * as React from "react";
+import { SVGProps } from "react";
+
+export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       id="SvgjsSvg1223"
@@ -7,6 +10,7 @@ export function Logo() {
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 300 41.6"
       overflow="visible"
+      {...props}
     >
       <defs id="SvgjsDefs1224" />
       <g id="SvgjsG1225" transform="scale(0.4667229509301464)" opacity="1">

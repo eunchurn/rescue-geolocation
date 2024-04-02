@@ -112,6 +112,7 @@
   width: 100%;
   height: 25px;
   border-radius: 5px;
+  color: #000;
 }
 
 .geolocation .chip {
@@ -156,6 +157,7 @@
 
 .name[datatooltip] {
   position: relative;
+  color: #000;
 }
 
 .name[datatooltip]:before,

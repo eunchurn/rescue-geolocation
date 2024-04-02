@@ -1,5 +1,5 @@
 .container {
-  display:  flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: 100vh;
@@ -15,24 +15,24 @@
 }
 
 .cistern {
-	min-width: 240px;
-	height: 220px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+  min-width: 240px;
+  height: 220px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
 }
 
 .info {
-	background: #fff;
-	min-width: 100px;
-	height: 100%;
-	position: relative;
-	color: #333;
-	text-align: center;
-	float: left;
+  background: #fff;
+  min-width: 100px;
+  height: 100%;
+  position: relative;
+  color: #333;
+  text-align: center;
+  float: left;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,38 +42,38 @@
 
 .info::before {
   z-index: -1;
-	position: absolute;
-	content: "";
-	bottom: 15px;
-	left: 10px;
-	width: 50%;
-	top: 80%;
-	max-width:300px;
-	box-shadow: 0 15px 10px #000;
-	transform: rotate(-3deg);
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  box-shadow: 0 15px 10px #000;
+  transform: rotate(-3deg);
 }
 
 .infoData {
   background-color: #333;
   color: #fff;
-	width: 240px;
-	height: 100%;
-	position: relative;
-	float: right;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 240px;
+  height: 100%;
+  position: relative;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .infoData::after {
   z-index: -1;
-	position: absolute;
-	content: "";
-	bottom: 15px;
-	width: 50%;
-	top: 80%;
-	max-width:300px;
-	box-shadow: 0 15px 10px #000;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  box-shadow: 0 15px 10px #000;
   transform: rotate(3deg);
   left: auto;
   right: 10px;
@@ -132,6 +132,7 @@
 .koreanAfter {
   color: #F16C6C;
 }
+
 .allDegree {
   font-size: 1em;
 }
