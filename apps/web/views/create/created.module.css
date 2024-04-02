@@ -68,7 +68,7 @@
 .eye{
   width: 20px;
   height: 20px;
-  background-color: #ffffff;
+  background: #ffffff;
   border-radius: 50%;
   box-shadow: 30px 0px 0px 0px #ffffff;
   position: relative;
@@ -76,7 +76,7 @@
 }
 
 .eye:after{
-  background-color: #59488b;
+  background: #59488b;
   width: 10px;
   height: 10px;
   box-shadow: 30px 0px 0px 0px #59488b;
