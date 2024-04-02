@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { Logo, RescueButton } from "@/components";
+import { Geolocation, RescueButton } from "@/components";
 
 function Gradient({
   conic,
@@ -102,14 +102,15 @@ export default function Page(): JSX.Element {
             </div>
 
             <div className={styles.logo}>
-              <Image
+              <Geolocation width={125} height={125} />
+              {/* <Image
                 alt="Geolocation"
                 height={120}
                 priority
                 src="geolocation.svg"
                 width={120}
                 style={{ pointerEvents: "none" }}
-              />
+              /> */}
             </div>
           </div>
           <Gradient className={styles.backgroundGradient} conic />

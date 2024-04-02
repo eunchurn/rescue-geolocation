@@ -54,6 +54,7 @@ export function CreatedLocation(props: CreatedLocationProps) {
         <Button
           onClick={() => {
             router.push("/");
+            router.refresh();
           }}
         >
           처음으로 돌아가기

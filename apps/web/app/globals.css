@@ -5,7 +5,7 @@
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
+  --white: #ffffff;
   --foreground-rgb: 0, 0, 0;
   --foreground-focus: #e5e4e2;
   --background-start-rgb: 255, 255, 255;

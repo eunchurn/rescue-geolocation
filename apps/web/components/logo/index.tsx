@@ -1,6 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
+export * from "./geolocation";
+
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
