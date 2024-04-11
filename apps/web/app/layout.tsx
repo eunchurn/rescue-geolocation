@@ -3,7 +3,13 @@ import type { Metadata, Viewport } from "next";
 import styles from "./layout.module.css";
 import { Inter } from "next/font/google";
 import { FooterButton } from "@/components";
+import localFont from "next/font/local";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+
+export const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  display: "swap",
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
