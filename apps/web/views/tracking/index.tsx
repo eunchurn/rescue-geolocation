@@ -18,14 +18,6 @@ dayjs.extend(relativeTime);
 dayjs.extend(updatedLocale);
 dayjs.locale("ko");
 
-interface TooltipProps extends React.HTMLProps<HTMLDivElement> {
-  datatooltip?: string;
-}
-
-function Tooltip(props: TooltipProps) {
-  return <div {...props} />;
-}
-
 function Waiting() {
   return (
     <div className={styles.waiting}>
