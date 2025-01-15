@@ -24,7 +24,9 @@ model GeoLocation {
 }
 
 model Castaway {
-  id       String        @id @default(auto()) @map("_id") @db.ObjectId
-  uniqueId String        @unique
-  location GeoLocation[]
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  uniqueId  String        @unique
+  location  GeoLocation[]
 }
