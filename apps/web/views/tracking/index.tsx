@@ -6,12 +6,13 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updatedLocale from "dayjs/plugin/updateLocale";
 import "dayjs/locale/ko";
-import { convertDDtoDMS } from "@/shared";
+import { convertDDtoDM } from "@/shared";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks";
-import { Button, Snackbar } from "@/components";
+import { Snackbar } from "@/components";
 import { useJsApiLoader, MarkerF, GoogleMap } from "@react-google-maps/api";
+import { TrackingCard } from "@/components/card";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updatedLocale);
@@ -140,92 +141,38 @@ export function Tracking(props: TrackingProps) {
           if (!item) return <Waiting />;
 
           const { id, createdAt, latitude, longitude } = item;
-          const {
-            degree: latDeg,
-            minute: latMin,
-            second: latSec,
-          } = convertDDtoDMS(latitude);
-          const {
-            degree: lonDeg,
-            minute: lonMin,
-            second: lonSec,
-          } = convertDDtoDMS(longitude);
-          const cardProps = {
-            createdAt,
-            latDeg,
-            latMin,
-            latSec,
-            lonDeg,
-            lonMin,
-            lonSec,
-            isLatest: index === 0,
-          };
-          return <Card key={id} {...cardProps} />;
+          const { degree: latDeg, minute: latMin } = convertDDtoDM(latitude);
+          const { degree: lonDeg, minute: lonMin } = convertDDtoDM(longitude);
+          // const {
+          //   degree: latDeg,
+          //   minute: latMin,
+          //   second: latSec,
+          // } = convertDDtoDMS(latitude);
+          // const {
+          //   degree: lonDeg,
+          //   minute: lonMin,
+          //   second: lonSec,
+          // } = convertDDtoDMS(longitude);
+          return (
+            <TrackingCard
+              key={id}
+              {...{
+                createdAt,
+                presentationType: "dm",
+                data: {
+                  latDeg,
+                  latMin,
+                  // latSec,
+                  lonDeg,
+                  lonMin,
+                  // lonSec,
+                },
+                isLatest: index === 0,
+              }}
+            />
+          );
         })}
       </ul>
     </div>
-  );
-}
-
-interface CardProps {
-  createdAt: Date;
-  latDeg: number;
-  latMin: number;
-  latSec: number;
-  lonDeg: number;
-  lonMin: number;
-  lonSec: number;
-  isLatest: boolean;
-}
-
-function Card(props: CardProps) {
-  const {
-    createdAt,
-    latDeg,
-    latMin,
-    latSec,
-    lonDeg,
-    lonMin,
-    lonSec,
-    isLatest,
-  } = props;
-  return (
-    <React.Fragment>
-      <li className={styles.item}>
-        <div className={styles.task}>
-          <div className={styles.icon}></div>
-          <Tooltip
-            className={styles.name}
-            datatooltip={dayjs(createdAt).toString()}
-          >
-            {dayjs(createdAt).fromNow()}
-          </Tooltip>
-        </div>
-
-        <div className={styles.geolocation}>
-          <div className={styles.bar}>
-            <div className={styles.chip}>위도</div>
-            <div>
-              <span className={styles.degree}>{latDeg}</span>
-              <span className={styles.degree}>{latMin}</span>
-              <span className={styles.degree}>{latSec}</span>
-            </div>
-          </div>
-          <div className={styles.bar}>
-            <div className={styles.chip}>경도</div>
-            <div>
-              <span className={styles.degree}>{lonDeg}</span>
-              <span className={styles.degree}>{lonMin}</span>
-              <span className={styles.degree}>{lonSec}</span>
-            </div>
-          </div>
-        </div>
-      </li>
-      {isLatest ? (
-        <div className={styles.helpContainer}>
-          <div className={styles.help}></div>
-        </div>
-      ) : null}
-    </React.Fragment>
   );
 }

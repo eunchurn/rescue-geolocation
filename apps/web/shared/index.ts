@@ -7,6 +7,14 @@ export function convertDDtoDMS(D: number | undefined) {
   };
 }
 
+export function convertDDtoDM(D: number | undefined) {
+  if (D === undefined) return { degree: 0, minute: 0 };
+  const absolute = Math.abs(D);
+  const degree = Math.floor(absolute);
+  const minute = parseFloat(((absolute - degree) * 60).toFixed(6));
+  return { degree, minute };
+}
+
 export function geopositionToObject(geoposition: GeolocationPosition) {
   return {
     timestamp: geoposition.timestamp,

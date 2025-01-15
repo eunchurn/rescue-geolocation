@@ -10,7 +10,7 @@ export function FooterButton() {
   return (
     <button
       className={styles.footer_button}
-      onClick={() => router.push("https://clev.app")}
+      onClick={() => router.push("https://clev.kr")}
     >
       <Logo height={21} />
     </button>
