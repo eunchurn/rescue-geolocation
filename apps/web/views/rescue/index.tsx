@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./rescue.module.css";
+import { convertDDtoDM } from "@/shared";
 
 interface RescueContainerProps {
   id: string;
@@ -74,20 +75,21 @@ interface LocationTypoProps {
 
 function LocationTypo(props: LocationTypoProps) {
   const { dd } = props;
-  const { degree, minute, second } = convertDDtoDMS(dd);
+  // const { degree, minute, second } = convertDDtoDMS(dd);
+  const { degree, minute } = convertDDtoDM(dd);
   return (
     <div className={styles.typoContainer}>
       <div className={styles.degree}>{degree}</div>
       <div className={styles.minute}>{minute}</div>
-      <div className={styles.second}>{second}</div>
+      {/* <div className={styles.second}>{second}</div> */}
       <div className={styles.readerContainer}>
         <div className={styles.korean}>
           {degree}
           <span className={styles.koreanAfter}>도</span>
           {minute}
           <span className={styles.koreanAfter}>분</span>
-          {second}
-          <span className={styles.koreanAfter}>초</span>
+          {/* {second}
+          <span className={styles.koreanAfter}>초</span> */}
         </div>
         <div className={styles.allDegree}>
           {dd}
@@ -98,14 +100,14 @@ function LocationTypo(props: LocationTypoProps) {
   );
 }
 
-function convertDDtoDMS(D: number | undefined) {
-  if (D === undefined) return { degree: 0, minute: 0, second: 0 };
-  return {
-    degree: 0 | D,
-    minute: 0 | (((D = (D < 0 ? -D : D) + 1e-4) % 1) * 60),
-    second: 0 | 0 | (((D * 60) % 1) * 60),
-  };
-}
+// function convertDDtoDMS(D: number | undefined) {
+//   if (D === undefined) return { degree: 0, minute: 0, second: 0 };
+//   return {
+//     degree: 0 | D,
+//     minute: 0 | (((D = (D < 0 ? -D : D) + 1e-4) % 1) * 60),
+//     second: 0 | 0 | (((D * 60) % 1) * 60),
+//   };
+// }
 
 function geopositionToObject(geoposition: GeolocationPosition) {
   return {

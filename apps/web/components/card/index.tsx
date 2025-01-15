@@ -60,16 +60,16 @@ export function TrackingCard(props: CardProps) {
             <div className={styles.chip}>위도</div>
             <div>
               <span className={styles.degree}>{latDeg}</span>
-              <span className={styles.degree}>{latMin}</span>
-              {latSec ? <span className={styles.degree}>{latSec}</span> : null}
+              <span className={styles.minute}>{latMin}</span>
+              {latSec ? <span className={styles.second}>{latSec}</span> : null}
             </div>
           </div>
           <div className={styles.bar}>
             <div className={styles.chip}>경도</div>
             <div>
               <span className={styles.degree}>{lonDeg}</span>
-              <span className={styles.degree}>{lonMin}</span>
-              {lonSec ? <span className={styles.degree}>{lonSec}</span> : null}
+              <span className={styles.minute}>{lonMin}</span>
+              {lonSec ? <span className={styles.second}>{lonSec}</span> : null}
             </div>
           </div>
         </div>
