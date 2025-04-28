@@ -10,7 +10,7 @@ function Gradient({
   small?: boolean;
   conic?: boolean;
   className?: string;
-}): JSX.Element {
+}) {
   return (
     <span
       className={[
@@ -25,7 +25,7 @@ function Gradient({
   );
 }
 
-export default function Page(): JSX.Element {
+export default function Page() {
   return (
     <div className={styles.main}>
       {/* <div className={styles.description}></div> */}

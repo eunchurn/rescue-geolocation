@@ -13,22 +13,23 @@ export const metadata: Metadata = {
 
 export const fetchCache = "force-no-store";
 interface CreateProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function Create(props: CreateProps) {
   const {
-    params: { id },
+    params,
   } = props;
+  const { id } = await params;
   await prisma.castaway.upsert({
     where: { uniqueId: id },
     create: { uniqueId: id },
     update: { uniqueId: id },
   });
 
-  const headersList = headers();
+  const headersList = await headers();
   const headerUrl = headersList.get("x-url") || "http://localhost:3000";
   const { origin } = new URL(headerUrl);
   const link = new URL(`/rescue/${id}`, origin).href;

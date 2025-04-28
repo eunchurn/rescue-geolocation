@@ -9,16 +9,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://rescue.clev.app"),
 };
 interface TrackingProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function TrackingRSC(props: TrackingProps) {
-  const {
-    params: { id },
-  } = props;
-  const headersList = headers();
+export default async function TrackingRSC({ params }: TrackingProps) {
+  const { id } = await params;
+  const headersList = await headers();
   const headerUrl = headersList.get("x-url") || "http://localhost:3000";
   const { origin } = new URL(headerUrl);
   const link = new URL(`/rescue/${id}`, origin).href;

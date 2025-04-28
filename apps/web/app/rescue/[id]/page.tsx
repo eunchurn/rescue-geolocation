@@ -10,15 +10,13 @@ export const metadata: Metadata = {
 
 export const fetchCache = "force-no-store";
 interface RescueProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function Rescue(props: RescueProps) {
-  const {
-    params: { id },
-  } = props;
+export default async function Rescue({ params }: RescueProps) {
+  const { id } = await params;
   return (
     <div className={[styles.container, styles.cf].join(" ")}>
       <div className={styles.span}>

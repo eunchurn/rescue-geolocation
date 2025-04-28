@@ -9,15 +9,13 @@ export const contentType = "image/png";
 export const runtime = "edge";
 
 interface RescueProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function Image(props: RescueProps) {
-  const {
-    params: { id },
-  } = props;
+export default async function Image({ params }: RescueProps) {
+  const { id } = await params;
   return new ImageResponse(
     (
       <div
