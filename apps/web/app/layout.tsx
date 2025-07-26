@@ -28,11 +28,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={inter.variable}>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased overflow-x-hidden max-w-full">
         <SpeedInsights />
         <ThemeProvider>
-          <main className="min-h-screen flex flex-col">
-            <div className="flex-1 flex justify-center items-start">
+          <main className="min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
+            <div className="flex-1 flex justify-center items-start overflow-x-hidden max-w-full">
               {children}
             </div>
             <footer className="h-12 flex justify-center items-center border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
