@@ -1,18 +1,16 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import styles from "./layout.module.css";
 import { Inter } from "next/font/google";
 import { FooterButton } from "@/components";
-import localFont from "next/font/local";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ThemeProvider } from "@/components/theme-provider";
+
+const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   display: "swap",
 });
-
-const inter = Inter({ subsets: ["latin"] });
-
 
 export const metadata: Metadata = {
   title: "긴급구조 위치 공유",
@@ -33,13 +31,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>
+    <html lang="ko" className={inter.variable}>
+      <body className="font-sans antialiased">
         <SpeedInsights />
-        <main className={styles.main_container}>{children} </main>
-        <footer className={styles.footer_container}>
+        <ThemeProvider>
+          <main className="min-h-screen flex flex-col">
+            <div className="flex-1 flex justify-center items-start">
+              {children}
+            </div>
+          <footer className="h-12 flex justify-center items-center border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
           <FooterButton />
         </footer>
+        </ThemeProvider>
       </body>
     </html>
   );

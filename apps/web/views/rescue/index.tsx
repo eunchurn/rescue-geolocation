@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "./rescue.module.css";
 import { convertDDtoDM } from "@/shared";
 
 interface RescueContainerProps {
@@ -31,40 +30,56 @@ export function RescueContainer(props: RescueContainerProps) {
   }, [navigator]);
 
   return location ? (
-    <div className={styles.container}>
-      <div className={styles.item}>
-        <div className={styles.cistern}>
-          <div className={styles.info}>위도</div>
-          <div className={styles.infoData}>
+    <div className="space-y-8 animate-fade-in">
+      {/* Location Cards */}
+      <div className="space-y-4">
+        <div className="card p-6">
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <div className="text-center">
+              <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">위도</div>
+              <div className="w-3 h-3 bg-primary-500 rounded-full mx-auto"></div>
+            </div>
+            <div className="col-span-2">
             <LocationTypo dd={location.coords.latitude} />
           </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.item}>
-        <div className={styles.cistern}>
-          <div className={styles.info}>경도</div>
-          <div className={styles.infoData}>
+        
+        <div className="card p-6">
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <div className="text-center">
+              <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">경도</div>
+              <div className="w-3 h-3 bg-emerald-500 rounded-full mx-auto"></div>
+            </div>
+            <div className="col-span-2">
             <LocationTypo dd={location.coords.longitude} />
+            </div>
           </div>
         </div>
       </div>
-      {location ? (
-        <>
-          <div className={styles.report}>
+      
+      {/* Status Information */}
+      <div className="glass rounded-2xl p-6 text-center space-y-3">
+        <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full mx-auto flex items-center justify-center">
+          <div className="w-6 h-6 text-white">✓</div>
+        </div>
+        <div className="space-y-2">
+          <p className="font-semibold text-emerald-600 dark:text-emerald-400">
             구조대원에게 위치정보가 공유되었습니다.
-          </div>
-          <div className={styles.report}>
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             {new Date(location.timestamp).toLocaleString()}
-          </div>
-          <div className={styles.report}>
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             위치정보는 24시간후에 자동 삭제됩니다.
-          </div>
-        </>
-      ) : null}
+          </p>
+        </div>
+      </div>
     </div>
   ) : (
-    <div className={styles.report}>
-      <div>좌표를 찾고있습니다.</div>
+    <div className="text-center space-y-4">
+      <div className="w-12 h-12 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto"></div>
+      <p className="text-gray-600 dark:text-gray-300">좌표를 찾고 있습니다...</p>
     </div>
   );
 }
@@ -78,25 +93,30 @@ function LocationTypo(props: LocationTypoProps) {
   // const { degree, minute, second } = convertDDtoDMS(dd);
   const { degree, minute } = convertDDtoDM(dd);
   return (
-    <div className={styles.typoContainer}>
-      <div className={styles.degree}>{degree}</div>
-      <div className={styles.minute}>{minute}</div>
-      {/* <div className={styles.second}>{second}</div> */}
-      <div className={styles.readerContainer}>
-        <div className={styles.korean}>
+    <div className="space-y-3">
+      {/* Main Coordinates */}
+      <div className="flex items-baseline justify-end space-x-1">
+        <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">{degree}</span>
+        <span className="text-xl text-red-500">°</span>
+        <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">{minute}</span>
+        <span className="text-xl text-red-500">'</span>
+      </div>
+      
+      {/* Alternative Formats */}
+      <div className="bg-gray-900 dark:bg-gray-100 rounded-lg p-3 space-y-1">
+        <div className="text-right text-white dark:text-gray-900 text-lg">
           {degree}
-          <span className={styles.koreanAfter}>도</span>
+          <span className="text-red-400 dark:text-red-600">도</span>
+          {" "}
           {minute}
-          <span className={styles.koreanAfter}>분</span>
-          {/* {second}
-          <span className={styles.koreanAfter}>초</span> */}
+          <span className="text-red-400 dark:text-red-600">분</span>
         </div>
-        <div className={styles.allDegree}>
+        <div className="text-right text-white dark:text-gray-900 text-sm opacity-75">
           {dd}
-          <span className={styles.koreanAfter}>도</span>
+          <span className="text-red-400 dark:text-red-600">도</span>
+        </div>
         </div>
       </div>
-    </div>
   );
 }
 
