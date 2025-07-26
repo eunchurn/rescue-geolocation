@@ -7,11 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
-export const pretendard = localFont({
-  src: "./fonts/PretendardVariable.woff2",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "긴급구조 위치 공유",
   description: "조난자에게 링크를 보내 위치를 수집하세요.",
@@ -39,14 +34,12 @@ export default function RootLayout({
             <div className="flex-1 flex justify-center items-start">
               {children}
             </div>
-          <footer className="h-12 flex justify-center items-center border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-          <FooterButton />
-        </footer>
+            <footer className="h-12 flex justify-center items-center border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+              <FooterButton />
+            </footer>
+          </main>
         </ThemeProvider>
       </body>
     </html>
   );
-}
-
-  )
 }
