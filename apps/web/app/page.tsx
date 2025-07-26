@@ -9,7 +9,7 @@ export default function Page() {
           {/* Animated Circles Background */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-40 h-40 rounded-full border-2 border-primary-200 dark:border-primary-800 animate-pulse opacity-20"></div>
-            <div className="absolute w-60 h-60 rounded-full border border-primary-100 dark:border-primary-900 animate-spin-slow opacity-10"></div>
+            <div className="absolute w-60 h-60 rounded-full border border-primary-100 dark:border-primary-900 animate-spin opacity-10"></div>
           </div>
           
           {/* Location Icon */}
