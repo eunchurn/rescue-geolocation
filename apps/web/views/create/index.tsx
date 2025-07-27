@@ -14,10 +14,23 @@ export function CreatedLocation(props: CreatedLocationProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { isActive, message, openSnackBar } = useSnackbar();
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (inputRef.current) {
-      navigator.clipboard.writeText(link);
-      openSnackBar("주소를 클립보드로 복사했습니다.");
+      try {
+        // 최신 브라우저에서 Clipboard API 사용
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(link);
+        } else {
+          // Fallback: 기존 방식 사용
+          inputRef.current.select();
+          inputRef.current.setSelectionRange(0, 99999); // 모바일 브라우저 지원
+          document.execCommand('copy');
+        }
+        openSnackBar("주소를 클립보드로 복사했습니다.");
+      } catch (err) {
+        console.error('클립보드 복사 실패:', err);
+        openSnackBar("클립보드 복사에 실패했습니다. 직접 복사해주세요.");
+      }
     }
   };
   return (
