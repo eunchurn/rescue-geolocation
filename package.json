@@ -15,11 +15,11 @@
   "devDependencies": {
     "@rescue/eslint-config": "workspace:*",
     "@rescue/typescript-config": "workspace:*",
-    "dotenv-cli": "^8.0.0",
-    "prettier": "^3.5.3",
+    "dotenv-cli": "^9.0.0",
+    "prettier": "^3.6.2",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.13.1",
   "engines": {
     "node": ">=18"
   }
