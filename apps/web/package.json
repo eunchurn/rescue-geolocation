@@ -10,29 +10,29 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.20.7",
+    "@react-google-maps/api": "2.20.8",
     "@rescue/prisma": "workspace:^",
     "@rescue/ui": "workspace:*",
-    "@vercel/speed-insights": "^1.2.0",
-    "dayjs": "^1.11.13",
-    "nanoid": "^5.1.5",
-    "next": "15.4.10",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "@vercel/speed-insights": "2.1.0",
+    "dayjs": "1.11.23",
+    "nanoid": "6.0.2",
+    "next": "16.4.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.4.4",
+    "@next/eslint-plugin-next": "16.4.5",
     "@rescue/eslint-config": "workspace:*",
     "@rescue/typescript-config": "workspace:*",
-    "@tailwindcss/forms": "^0.5.10",
-    "@types/eslint": "^9.6.1",
-    "@types/node": "^24.1.0",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^9.32.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
+    "@tailwindcss/forms": "0.5.11",
+    "@types/eslint": "9.6.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "10.14.0",
+    "postcss": "8.5.32",
+    "tailwindcss": "4.3.4",
+    "typescript": "6.0.3",
+    "@tailwindcss/postcss": "4.3.4"
   }
 }

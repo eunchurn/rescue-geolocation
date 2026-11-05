@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { CreatedLocation } from "@/views";
 import { headers } from "next/headers";
 import prisma from "@rescue/prisma";
-import styles from "./created.module.css";
+import { LoadingState } from "@/components/experience/loading";
 
 export const metadata: Metadata = {
   title: "긴급구조 위치 공유",
@@ -19,11 +19,9 @@ interface CreateProps {
 }
 
 export default async function Create(props: CreateProps) {
-  const {
-    params,
-  } = props;
+  const { params } = props;
   const { id } = await params;
-  await prisma.castaway.upsert({
+  const created = await prisma.castaway.upsert({
     where: { uniqueId: id },
     create: { uniqueId: id },
     update: { uniqueId: id },
@@ -35,16 +33,13 @@ export default async function Create(props: CreateProps) {
   const link = new URL(`/rescue/${id}`, origin).href;
   const trackingUrl = new URL(`/tracking/${id}`, origin).href;
   return (
-    <React.Suspense
-      fallback={
-        <div className={styles.container}>
-          <div className={styles.eyeContainer}>
-            <div className={styles.eye}></div>
-          </div>
-        </div>
-      }
-    >
-      <CreatedLocation link={link} trackingLink={trackingUrl} />
+    <React.Suspense fallback={<LoadingState label="링크를 만드는 중…" />}>
+      <CreatedLocation
+        id={id}
+        createdAt={created.createdAt.toISOString()}
+        link={link}
+        trackingLink={trackingUrl}
+      />
     </React.Suspense>
   );
 }

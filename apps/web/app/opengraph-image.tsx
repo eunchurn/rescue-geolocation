@@ -8,16 +8,7 @@ export const size = {
 export const contentType = "image/png";
 export const runtime = "edge";
 
-interface RescueProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function Image(props: RescueProps) {
-  const {
-    params: { id },
-  } = props;
+export default function Image() {
   return new ImageResponse(
     (
       <div
@@ -32,7 +23,7 @@ export default function Image(props: RescueProps) {
           flexDirection: "column",
         }}
       >
-        <div style={{ color: "#eeeeee" }}>{id}</div>
+        <div style={{ color: "#eeeeee" }}>구조</div>
         <div style={{ color: "#ffffff" }}>조난자 위치를 확인하세요.</div>
       </div>
     ),

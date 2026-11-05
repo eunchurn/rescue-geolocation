@@ -8,19 +8,33 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push",
-    "migrate:dev": "cd packages/prisma && pnpm migrate:dev",
-    "migrate:deploy": "cd packages/prisma && pnpm run db:migrate",
+    "migrate:dev": "cd packages/prisma && bun run migrate:dev",
+    "migrate:deploy": "cd packages/prisma && bun run db:migrate",
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
     "@rescue/eslint-config": "workspace:*",
     "@rescue/typescript-config": "workspace:*",
-    "dotenv-cli": "^9.0.0",
-    "prettier": "^3.6.2",
-    "turbo": "latest"
+    "dotenv-cli": "11.1.0",
+    "prettier": "3.9.10",
+    "turbo": "2.11.10"
   },
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "bun@1.4.4",
   "engines": {
-    "node": ">=18"
-  }
+    "node": ">=24.11.0",
+    "bun": ">=1.4.4"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "trustedDependencies": [
+    "@prisma/client",
+    "@prisma/engines",
+    "@vercel/speed-insights",
+    "core-js-pure",
+    "esbuild",
+    "prisma",
+    "sharp"
+  ]
 }

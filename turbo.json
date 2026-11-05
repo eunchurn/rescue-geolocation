@@ -1,37 +1,23 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "**/.env.*local",
-    ".env"
-  ],
+  "globalDependencies": ["**/.env.*local", ".env"],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": ["NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"]
     },
     "@rescue/prisma#build": {
-      "dependsOn": [
-        "@rescue/prisma#db:generate"
-      ],
+      "dependsOn": ["@rescue/prisma#db:generate"],
       "cache": false
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "dependsOn": ["^lint"]
     },
     "dev": {
       "cache": false,
       "persistent": true,
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", ".env"]
     },
     "db:generate": {
       "cache": false
@@ -42,5 +28,6 @@
     "typecheck": {
       "cache": false
     }
-  }
+  },
+  "globalPassThroughEnv": ["DATABASE_URL"]
 }

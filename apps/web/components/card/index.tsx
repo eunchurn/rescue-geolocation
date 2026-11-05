@@ -5,7 +5,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updatedLocale from "dayjs/plugin/updateLocale";
 import "dayjs/locale/ko";
-import { convertDDtoDMS } from "@/shared";
 import React from "react";
 
 dayjs.extend(relativeTime);

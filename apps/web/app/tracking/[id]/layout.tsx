@@ -1,8 +1,3 @@
-interface TrackingLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function Tracking(props: TrackingLayoutProps) {
-  const { children } = props;
-  return <div className="w-full max-w-4xl mx-auto p-4">{children}</div>;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <div className="flow-page page-width">{children}</div>;
 }

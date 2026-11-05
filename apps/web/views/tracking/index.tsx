@@ -1,254 +1,241 @@
 "use client";
-
-import { GeoLocation } from "@rescue/prisma";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import updatedLocale from "dayjs/plugin/updateLocale";
-import "dayjs/locale/ko";
-import { convertDDtoDM } from "@/shared";
-import React from "react";
-import { useRouter } from "next/navigation";
-import { useSnackbar } from "@/hooks";
-import { Snackbar } from "@/components";
-import { useJsApiLoader, MarkerF, GoogleMap } from "@react-google-maps/api";
-
-dayjs.extend(relativeTime);
-dayjs.extend(updatedLocale);
-dayjs.locale("ko");
-
-function Waiting() {
-  return (
-    <div className="flex flex-col items-center justify-center py-16">
-      <div className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mb-6">
-        <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-      </div>
-      <p className="text-gray-600 dark:text-gray-300">위치정보를 기다리는 중입니다.</p>
-    </div>
-  );
-}
-
-interface TrackingCardProps {
-  createdAt: Date;
-  data: {
-    latDeg: number;
-    latMin: number;
-    lonDeg: number;
-    lonMin: number;
-  };
-  isLatest: boolean;
-}
-
-function TrackingCard(props: TrackingCardProps) {
-  const {
-    createdAt,
-    data: { latDeg, latMin, lonDeg, lonMin },
-    isLatest,
-  } = props;
-
-  return (
-    <div className={`card p-6 ${isLatest ? 'ring-2 ring-primary-500' : ''}`}>
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-3">
-          <div className={`w-4 h-4 rounded-full ${isLatest ? 'bg-primary-500 animate-pulse' : 'bg-gray-400'}`}></div>
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-            {dayjs(createdAt).fromNow()}
-          </span>
-          {isLatest && (
-            <span className="px-2 py-1 text-xs bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full">
-              최신
-            </span>
-          )}
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">위도</div>
-          <div className="flex items-baseline space-x-1">
-            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{latDeg}</span>
-            <span className="text-sm text-red-500">°</span>
-            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{latMin.toFixed(6)}</span>
-            <span className="text-sm text-red-500">'</span>
-          </div>
-        </div>
-        
-        <div className="space-y-2">
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">경도</div>
-          <div className="flex items-baseline space-x-1">
-            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{lonDeg}</span>
-            <span className="text-sm text-red-500">°</span>
-            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{lonMin.toFixed(6)}</span>
-            <span className="text-sm text-red-500">'</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-interface TrackingProps {
-  id: string;
-  data: GeoLocation[];
-  link: string;
-}
-
-export function Tracking(props: TrackingProps) {
-  const { id, data, link } = props;
-  const param = new URLSearchParams({ id });
-  const [state, setState] = React.useState(data);
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const router = useRouter();
-  const { isActive, message, openSnackBar } = useSnackbar();
-  const { isLoaded } = useJsApiLoader({
+import type { GeoLocation } from "@rescue/prisma";
+import { useEffect, useState } from "react";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import { Emergency, Icon, PageHeading, Steps } from "@/components/experience";
+import { ShareLink } from "@/components/experience/share";
+import { LoadingState, Spinner } from "@/components/experience/loading";
+function LocationMap({ point }: { point: GeoLocation }) {
+  const { isLoaded, loadError } = useJsApiLoader({
     id: "rescue-clev",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
-
-  const handleCopy = async () => {
-    if (inputRef.current) {
+  if (loadError)
+    return (
+      <div className="map-empty">
+        지도를 불러오지 못했어요. 아래 좌표와 지도 링크를 이용해주세요.
+      </div>
+    );
+  if (!isLoaded)
+    return (
+      <div className="map-empty">
+        <LoadingState label="지도를 불러오는 중…" />
+      </div>
+    );
+  const center = { lat: point.latitude, lng: point.longitude };
+  return (
+    <GoogleMap
+      mapContainerStyle={{ height: "340px", width: "100%" }}
+      center={center}
+      zoom={16}
+      options={{
+        streetViewControl: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+      }}
+    >
+      <MarkerF position={center} />
+    </GoogleMap>
+  );
+}
+export function Tracking({
+  id,
+  data,
+  link,
+}: {
+  id: string;
+  data: GeoLocation[];
+  link: string;
+}) {
+  const [state, setState] = useState(data);
+  const [error, setError] = useState("");
+  const [tick, setTick] = useState(Date.now());
+  useEffect(() => {
+    let live = true;
+    let timer: ReturnType<typeof setTimeout>;
+    const controller = new AbortController();
+    async function poll() {
       try {
-        // 최신 브라우저에서 Clipboard API 사용
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(link);
-        } else {
-          // Fallback: 기존 방식 사용
-          inputRef.current.select();
-          inputRef.current.setSelectionRange(0, 99999); // 모바일 브라우저 지원
-          document.execCommand('copy');
+        const res = await fetch(`/api?id=${encodeURIComponent(id)}`, {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error();
+        const next = await res.json();
+        if (!Array.isArray(next)) throw new Error();
+        if (live) {
+          setState(next);
+          setError("");
+          setTick(Date.now());
         }
-        openSnackBar("주소를 클립보드로 복사했습니다.");
-      } catch (err) {
-        console.error('클립보드 복사 실패:', err);
-        openSnackBar("클립보드 복사에 실패했습니다. 직접 복사해주세요.");
+      } catch (e) {
+        if (live && (e as Error).name !== "AbortError")
+          setError(
+            "연결이 원활하지 않아요. 마지막 수신 위치를 표시하며 자동으로 다시 연결하고 있어요.",
+          );
+      } finally {
+        if (live) timer = setTimeout(poll, 3000);
       }
     }
-  };
-
-  const [map, setMap] = React.useState<google.maps.Map | null>(null);
-  const center = {
-    lat: state[0]?.latitude || 37.5072397,
-    lng: state[0]?.longitude || 126.884165,
-  };
-
-  const onLoad = React.useCallback(
-    function callback(map: google.maps.Map) {
-      const bounds = new window.google.maps.LatLngBounds(center);
-      map.fitBounds(bounds);
-      setMap(map);
-    },
-    [center]
-  );
-
-  const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
-    setMap(null);
-  }, []);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      fetch(`/api?${param}`, { method: "GET" })
-        .then((res) => res.json())
-        .then((data: GeoLocation[]) => {
-          setState(data);
-        });
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
+    void poll();
+    return () => {
+      live = false;
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [id]);
+  const latest = state[0];
+  const stale = latest && tick - new Date(latest.timestamp).getTime() > 60000;
   return (
-    <div className="space-y-6">
-      {/* Link sharing section */}
-      <div className="card p-6">
-        <h2 className="text-lg font-semibold mb-4">구조링크 공유</h2>
-        <div className="flex rounded-xl overflow-hidden shadow-lg">
-          <input
-            ref={inputRef}
-            type="text"
-            value={link}
-            className="flex-1 px-4 py-3 bg-white dark:bg-gray-800 border-0 focus:ring-0 text-sm font-mono"
-            onChange={() => void 0}
-            readOnly
-          />
-          <button 
-            className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors duration-200"
-            onClick={handleCopy}
-          >
-            복사
-          </button>
+    <>
+      <Steps active={2} />
+      <PageHeading
+        eyebrow="LOCATION MONITOR"
+        title="안전한 만남을 위한 위치 확인"
+      >
+        상대방이 위치 공유를 시작하면, 이 화면에서 확인할 수 있어요.
+      </PageHeading>
+      <div className="tracking-grid">
+        <div>
+          <section className="monitor panel">
+            <div className="panel-header">
+              <h2>최근 수신 위치</h2>
+              <span
+                className={`status-pill ${error || stale || !latest ? "waiting-pill" : ""}`}
+              >
+                <span className="status-dot" />
+                {error
+                  ? "재연결 중"
+                  : !latest
+                    ? "위치 수신 대기"
+                    : stale
+                      ? "갱신 확인 필요"
+                      : "위치 수신됨"}
+              </span>
+            </div>
+            {error && (
+              <p className="error-message" role="alert">
+                {error}
+              </p>
+            )}
+            {latest ? (
+              <>
+                {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+                  <LocationMap point={latest} />
+                ) : (
+                  <div className="map-empty">
+                    <Icon size={36} />
+                    <p>
+                      좌표가 도착했어요.
+                      <br />
+                      아래 지도 링크로 위치를 확인해주세요.
+                    </p>
+                  </div>
+                )}
+                <div className="monitor-details">
+                  <div className="coordinate-grid">
+                    <div>
+                      <span>위도 LATITUDE</span>
+                      <strong>{latest.latitude.toFixed(6)}°</strong>
+                    </div>
+                    <div>
+                      <span>경도 LONGITUDE</span>
+                      <strong>{latest.longitude.toFixed(6)}°</strong>
+                    </div>
+                  </div>
+                  <p className="meta">
+                    추정 오차 ±{Math.round(latest.accuracy)}m ·{" "}
+                    {new Date(latest.timestamp).toLocaleString("ko-KR")}
+                  </p>
+                  {stale && (
+                    <p className="error-message">
+                      1분 이상 갱신되지 않은 위치예요. 상대방의 연결 상태를
+                      확인해주세요.
+                    </p>
+                  )}
+                  <a
+                    className="secondary-button"
+                    href={`https://www.google.com/maps/search/?api=1&query=${latest.latitude},${latest.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    지도에서 위치 열기 ↗
+                  </a>
+                </div>
+              </>
+            ) : (
+              <div className="waiting-state">
+                <div className="waiting-spinner">
+                  <Spinner />
+                </div>
+                <h3>첫 위치를 기다리고 있어요.</h3>
+                <p>
+                  상대방에게 링크를 보내셨나요?
+                  <br />
+                  링크를 열고 위치 공유를 허용하면 좌표가 도착해요.
+                </p>
+                <span>3초 간격으로 자동 확인합니다</span>
+              </div>
+            )}
+          </section>
+          <section className="history panel">
+            <div className="panel-header">
+              <h2>위치 기록</h2>
+              <span className="meta">{state.length}건 수신</span>
+            </div>
+            {state.length ? (
+              <ol>
+                {state.slice(0, 50).map((item, i) => (
+                  <li key={item.id}>
+                    <span className="history-dot" />
+                    <div>
+                      <strong>
+                        {new Date(item.timestamp).toLocaleTimeString("ko-KR")}
+                        {i === 0 && <small>최근</small>}
+                      </strong>
+                      <span>
+                        {item.latitude.toFixed(6)}°, {item.longitude.toFixed(6)}
+                        °
+                      </span>
+                    </div>
+                    <span className="meta">±{Math.round(item.accuracy)}m</span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="empty-history">
+                위치가 수신되면 최근 기록부터 표시됩니다.
+              </p>
+            )}
+          </section>
         </div>
-      </div>
-
-      {/* Map section */}
-      {state.length > 0 && isLoaded && (
-        <div className="card overflow-hidden">
-          <GoogleMap
-            mapContainerStyle={{ height: "400px", width: "100%" }}
-            center={center}
-            zoom={15}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-          >
-            {state.map((location, index) => {
-              const { id, latitude, longitude } = location;
-              if (index === 0) {
-                return (
-                  <MarkerF
-                    key={id}
-                    position={{ lat: latitude, lng: longitude }}
-                    icon={{
-                      url: "/geolocation.svg",
-                      scaledSize: new google.maps.Size(50, 50),
-                    }}
-                  />
-                );
-              }
-              return (
-                <MarkerF
-                  key={id}
-                  position={{ lat: latitude, lng: longitude }}
-                  icon={{
-                    url: "/gray.svg",
-                    scaledSize: new google.maps.Size(20, 20),
-                  }}
-                />
-              );
-            })}
-          </GoogleMap>
-        </div>
-      )}
-
-      <Snackbar isActive={isActive} message={message} />
-
-      {/* Location history */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">위치 기록</h2>
-        {state.length === 0 ? (
-          <Waiting />
-        ) : (
-          <div className="space-y-4">
-            {state.map((item, index) => {
-              if (!item) return <Waiting key={index} />;
-
-              const { id, createdAt, latitude, longitude } = item;
-              const { degree: latDeg, minute: latMin } = convertDDtoDM(latitude);
-              const { degree: lonDeg, minute: lonMin } = convertDDtoDM(longitude);
-
-              return (
-                <TrackingCard
-                  key={id}
-                  createdAt={createdAt}
-                  data={{
-                    latDeg,
-                    latMin,
-                    lonDeg,
-                    lonMin,
-                  }}
-                  isLatest={index === 0}
-                />
-              );
-            })}
+        <aside className="tracking-aside">
+          <section className="panel">
+            <h2>위치 공유 요청</h2>
+            <p>
+              아직 보내지 않았다면, 아래 링크를
+              <br />
+              도움이 필요한 분께 전달해주세요.
+            </p>
+            <ShareLink link={link} />
+          </section>
+          <div className="note">
+            <Icon name="shield" />
+            <p>
+              이 화면의 주소를 보관해주세요. 위치 정보가 포함되므로 신뢰하는
+              사람에게만 공유해주세요.
+            </p>
           </div>
-        )}
+          <div className="note">
+            <Icon name="clock" />
+            <p>
+              위치는 기기와 통신 상태에 따라 오차가 생길 수 있어요. 마지막 수신
+              시각을 함께 확인해주세요.
+            </p>
+          </div>
+        </aside>
       </div>
-    </div>
+      <Emergency />
+    </>
   );
 }

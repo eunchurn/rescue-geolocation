@@ -1,27 +1,24 @@
 "use client";
-
-import React from "react";
+import { useState } from "react";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
-
+import { Icon } from "@/components/experience";
+import { Spinner } from "@/components/experience/loading";
 export function RescueButton() {
   const router = useRouter();
-  const [active, setActive] = React.useState(true);
-  const handleCreate = React.useCallback(() => {
-    setActive(false);
-    router.push(`/create/${nanoid(6)}`);
-  }, [router]);
-  
+  const [busy, setBusy] = useState(false);
   return (
     <button
-      className={`btn-primary w-full relative ${!active ? 'opacity-70 cursor-not-allowed' : ''}`}
-      onClick={handleCreate}
-      disabled={!active}
+      className="primary-button"
+      disabled={busy}
+      aria-busy={busy}
+      onClick={() => {
+        setBusy(true);
+        router.push(`/create/${nanoid(12)}`);
+      }}
     >
-      {!active && <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-      </div>}
-      <span className={!active ? 'opacity-0' : ''}>구조링크 생성</span>
+      {busy ? "링크를 만들고 있어요…" : "위치 공유 링크 만들기"}
+      {busy ? <Spinner small /> : <Icon name="arrow" size={20} />}
     </button>
   );
 }

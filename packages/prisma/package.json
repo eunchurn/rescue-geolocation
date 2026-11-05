@@ -7,24 +7,25 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "dev": "npm run build -- --watch",
+    "dev": "bun run build --watch",
     "db:generate": "prisma generate",
     "db:push": "dotenv -e ../../.env -- tsx scripts/db-push.ts",
     "migrate:deploy": "dotenv -e ../../.env -- tsx scripts/migrate-deploy.ts",
     "migrate:dev": "dotenv -e ../../.env -- prisma migrate dev --create-only --schema prisma/schema.prisma",
-    "db:migrate": "pnpm migrate:deploy",
+    "db:migrate": "bun run migrate:deploy",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@rescue/eslint-config": "workspace:*",
     "@rescue/typescript-config": "workspace:*",
-    "dotenv-cli": "^9.0.0",
-    "prisma": "^6.12.0",
-    "tsup": "^8.5.0",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "dotenv-cli": "11.1.0",
+    "prisma": "6.19.3",
+    "tsup": "9.0.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "@types/node": "24.19.2"
   },
   "dependencies": {
-    "@prisma/client": "^6.12.0"
+    "@prisma/client": "6.19.3"
   }
 }

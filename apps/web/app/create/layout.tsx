@@ -1,8 +1,3 @@
-interface CreateLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function Create(props: CreateLayoutProps) {
-  const { children } = props;
-  return <div className="w-full max-w-md mx-auto">{children}</div>;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <div className="flow-page page-width">{children}</div>;
 }
